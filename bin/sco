@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+
+var program = require('commander');
+var codec = require('string-codec');
+var package = require('../package.json');
+
+program
+  .version(package.version, '-v, --version')
+  .usage('[options] <input string>')
+  .option('-e, --encode [algo]', 'encode input string by specified algorithm')
+  .option('-d, --decode [algo]', 'decode input string by specified algorithm')
+
+program.parse(process.argv);
+
+
+if(!program.args.length) { // No args
+  var str = '';
+  process.stdin.resume();
+  process.stdin.setEncoding('utf8');
+  process.stdin.on('data', function(chunk) {
+    str += chunk;
+  });
+  process.stdin.on('end', function(){
+    if(program.encode) {
+      console.log(codec.encoder(str,program.encode));
+    } else if(program.decode) {
+      console.log(codec.decoder(str,program.decode));
+    } else if(str == '') {
+      program.help();
+    }
+  });
+} else {
+  if(program.encode) {
+    console.log(codec.encoder(program.args[0],program.encode));
+  } else if(program.decode) {
+    console.log(codec.decoder(program.args[0],program.decode));
+  }
+}

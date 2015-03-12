@@ -1,0 +1,29 @@
+{
+  "name": "sco",
+  "version": "0.0.0",
+  "description": "Command line interface of string-codec",
+  "main": "./lib/sco.js",
+  "bin": "./bin/sco",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/knjcode/sco"
+  },
+  "keywords": [
+    "string-codec",
+    "cli"
+  ],
+  "author": "knjcode <knjcode@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/knjcode/sco/issues"
+  },
+  "homepage": "https://github.com/knjcode/sco",
+  "preferGlobal": true,
+  "dependencies": {
+    "commander": "^2.7.1",
+    "string-codec": "^0.0.1"
+  }
+}
