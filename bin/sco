@@ -6,7 +6,7 @@ var package = require('../package.json');
 
 program
   .version(package.version, '-v, --version')
-  .usage('[options] <input string>')
+  .usage('[options] <input>')
   .option('-e, --encode [algo]', 'encode input string by specified algorithm')
   .option('-d, --decode [algo]', 'decode input string by specified algorithm')
 
