@@ -1,4 +1,4 @@
-# sco
+# sco (String COdec)
 
 Command line interface of [string-codec]
 
@@ -24,6 +24,24 @@ Encode and Decode using pipes:
 
     $ sco -e base64 "hello world" | sco -d base64
     $ hello world
+
+## Options
+
+-h, --help
+
+* output usage information
+
+-v, --version
+
+* output the version number
+
+-e, --encode [algo]
+
+* encode input string by specified algorithm
+
+-d, --decode [algo]
+
+* decode input string by specified algorithm
 
 ## Supported specifications
 
@@ -71,6 +89,19 @@ Encode and Decode using pipes:
 |url|url encode|string|
 |unixtime|unix timestamp|date string|
 |md5|md5|string|
+
+### Input hex string
+
+Accept hex string prefixed with '0x' or separated by a colon (:)
+
+    codec.decoder('616263','hex');
+    // => abc
+    codec.decoder('0x616263','hex');
+    // => abc
+    codec.decoder('61:62:63','hex');
+    // => abc
+    codec.decoder('0x61:62:63','hex');
+    // => abc
 
 [string-codec]: https://github.com/knjcode/string-codec
 [npm-url]: https://npmjs.org/package/sco
