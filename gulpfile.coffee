@@ -2,52 +2,47 @@
 
 gulp = require 'gulp'
 $ = (require 'gulp-load-plugins') lazy: false
-es = require 'event-stream'
 
 paths =
-  lint: [
+  jshint: [
+    './bin/*.js'
+  ]
+  coffeelint: [
     './gulpfile.coffee'
-    './src/**/*.coffee'
+    './test/*.coffee'
   ]
   watch: [
     './gulpfile.coffee'
-    './src/**/*.coffee'
+    './bin/**/*.js'
     './test/**/*.coffee'
   ]
   tests: [
     './test/**/*.coffee'
   ]
-  source: [
-    './src/**/*.coffee'
-  ]
 
+gulp.task 'jshint', ->
+  gulp.src paths.jshint
+    .pipe $.jshint()
+    .pipe $.jshint.reporter()
 
-gulp.task 'lint', ->
-  gulp.src paths.lint
+gulp.task 'coffeelint', ->
+  gulp.src paths.coffeelint
     .pipe $.coffeelint()
     .pipe $.coffeelint.reporter()
 
-gulp.task 'compile', ['lint'], ->
-  es.merge(
-    gulp.src paths.source
-      .pipe $.sourcemaps.init()
-      .pipe($.coffee(bare: true).on('error', $.util.log))
-      .pipe $.sourcemaps.write()
-      .pipe gulp.dest('./lib')
-    gulp.src paths.tests
-      .pipe $.sourcemaps.init()
-      .pipe($.coffee({ bare: true }).on('error', $.util.log))
-      .pipe $.sourcemaps.write()
-      .pipe $.espower()
-      .pipe gulp.dest('./compile/test')
-  )
-  undefined
-
-gulp.task 'test', ['compile'], ->
-  gulp.src ['./compile/test/**/*.js'], {cwd: __dirname}
-    .pipe $.mocha()
+gulp.task 'compile', ['jshint', 'coffeelint'], ->
+  gulp.src paths.tests
+    .pipe $.sourcemaps.init()
+    .pipe($.coffee({ bare: true }).on('error', $.util.log))
+    .pipe $.sourcemaps.write()
+    .pipe $.espower()
+    .pipe gulp.dest('./compile')
 
 gulp.task 'watch', ['test'], ->
   gulp.watch paths.watch, ['test']
+
+gulp.task 'test', ['compile'], ->
+  gulp.src ['./compile/**/*.js'], {cwd: __dirname}
+    .pipe $.mocha()
 
 gulp.task 'default', ['test']
