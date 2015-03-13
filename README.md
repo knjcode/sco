@@ -1,5 +1,7 @@
 # sco (String COdec)
 
+[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]
+
 Command line interface of [string-codec]
 
 ## Installation
@@ -22,7 +24,7 @@ Decode from Base64:
 
 Encode and Decode using pipes:
 
-    $ sco -e base64 "hello world" | sco -d base64
+    $ echo "hello world" | sco -e base64 | sco -d base64
     $ hello world
 
 ## Options
@@ -102,6 +104,13 @@ Accept hex string prefixed with '0x' or separated by a colon (:)
     // => abc
     codec.decoder('0x61:62:63','hex');
     // => abc
+
+## Running tests
+
+    $ git clone https://github.com/knjcode/sco.git
+    $ cd sco
+    $ npm install
+    $ npm test
 
 [string-codec]: https://github.com/knjcode/string-codec
 [npm-url]: https://npmjs.org/package/sco
