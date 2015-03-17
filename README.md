@@ -54,16 +54,17 @@ Encode and Decode using pipes:
 |hex|string|hex string|
 |ascii|hex string|string|
 |base64|string|base64|
-|ascii85 (base85)|string|ascii85|
+|base85 (z85))|string|base85|
+|ascii85|string|ascii85|
 |base91|hex string|string|
 |rot5/rot13/rot18/rot47|string|string|
 |rev (reverse string)|string|string|
-|z85|string|z85|
-|rfc1924 (base85 IPv6)|IPv6 address|base85 IPv6 string|
 |crc1/crc8/crc16<br>crc24/crc32|string|crc checksum|
 |adler32|string|adler32|
 |url (url encoding)|string|url encode|
 |unixtime|date string|unix timestamp|
+|lower|string|string|
+|upper|string|string|
 |md4|string|md4|
 |md5|string|md5|
 |sha|string|sha|
@@ -82,12 +83,11 @@ Encode and Decode using pipes:
 |hex|hex string|string|
 |ascii|string|hex string|
 |base64|base64|string|
+|base85 (z85)|base85|string|
 |ascii85|ascii85|string|
 |base91|base91|hex string|
 |rot5/rot13/rot18/rot47|string|string|
 |rev|string|string|
-|z85|z85|string|
-|rfc1924|base85 IPv6 string|IPv6 address|
 |url|url encode|string|
 |unixtime|unix timestamp|date string|
 |md5|md5|string|
