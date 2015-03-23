@@ -22,6 +22,18 @@ Decode from Base64:
     $ sco -d base64 aGVsbG8=
     $ hello
 
+Encode to hex:
+
+    $ sco -e hex abc
+    $ 616263
+
+Decode from hex:
+
+    $ sco -d hex 616263
+    $ abc
+    $ sco -d hex 0x616263
+    $ abc
+
 Encode and Decode using pipes:
 
     $ echo "hello world" | sco -e base64 | sco -d base64
@@ -29,81 +41,37 @@ Encode and Decode using pipes:
 
 ## Options
 
--h, --help
+__-h, --help__
 
-* output usage information
+output usage information
 
--v, --version
+__-v, --version__
 
-* output the version number
+output the version number
 
--e, --encode [algo]
+__-e [algo], --encode [algo]__
 
-* encode input string by specified algorithm
+encode input with specified algorithm
 
--d, --decode [algo]
+__-d [algo], --decode [algo]__
 
-* decode input string by specified algorithm
+decode input with specified algorithm
 
 ## Supported specifications
 
+For further details, see [knjcode/string-codec](https://github.com/knjcode/string-codec)
+
 ### encoder
 
-|algorithm|input|output|
-|:--|:--|:--|
-|hex|string|hex string|
-|ascii|hex string|string|
-|base64|string|base64|
-|base85 (z85))|string|base85|
-|ascii85|string|ascii85|
-|base91|hex string|string|
-|rot5/rot13/rot18/rot47|string|string|
-|rev (reverse string)|string|string|
-|crc1/crc8/crc16<br>crc24/crc32|string|crc checksum|
-|adler32|string|adler32|
-|url (url encoding)|string|url encode|
-|unixtime|date string|unix timestamp|
-|lower|string|string|
-|upper|string|string|
-|md4|string|md4|
-|md5|string|md5|
-|sha|string|sha|
-|sha1|string|sha1|
-|sha224|string|sha224|
-|sha256|string|sha256|
-|sha384|string|sha384|
-|sha512|string|sha512|
-|rmd160|string|rmd160|
-|whirlpool|string|whirlpool|
+hex, ascii, base64, base85 (z85), ascii85, base91, rot5/rot13/rot18/rot47,  
+rev (reverse string), crc1/crc8/crc16/crc24/crc32, adler32, url (url encoding),  
+unixtime, lower, upper, md4, md5, sha, sha1, sha224, sha256, sha384, sha512,  
+rmd160, whirlpool
 
 ### decoder
 
-|algorithm|input|output|
-|:--|:--|:--|
-|hex|hex string|string|
-|ascii|string|hex string|
-|base64|base64|string|
-|base85 (z85)|base85|string|
-|ascii85|ascii85|string|
-|base91|base91|hex string|
-|rot5/rot13/rot18/rot47|string|string|
-|rev|string|string|
-|url|url encode|string|
-|unixtime|unix timestamp|date string|
-|md5|md5|string|
-
-### Input hex string
-
-Accept hex string prefixed with '0x' or separated by a colon (:)
-
-    codec.decoder('616263','hex');
-    // => abc
-    codec.decoder('0x616263','hex');
-    // => abc
-    codec.decoder('61:62:63','hex');
-    // => abc
-    codec.decoder('0x61:62:63','hex');
-    // => abc
+hex, ascii, base64, base85 (z85), ascii85, base91,  
+rot5/rot13/rot18/rot47, rev, url, unixtime, md5
 
 ## Running tests
 

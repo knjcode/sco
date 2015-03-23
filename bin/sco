@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 
+var fs = require('fs');
 var program = require('commander');
 var codec = require('string-codec');
 var package = require('../package.json');
+var eol = require('os').EOL;
 
 program
   .version(package.version, '-v, --version')
@@ -14,26 +16,26 @@ program.parse(process.argv);
 
 
 if(!program.args.length) { // No args
-  var str = '';
-  process.stdin.resume();
-  process.stdin.setEncoding('utf8');
+  var bufs = [];
   process.stdin.on('data', function(chunk) {
-    str += chunk;
+    bufs.push(chunk);
   });
   process.stdin.on('end', function(){
-    str = str.slice(0,-1);
-    if(program.encode) {
-      console.log(codec.encoder(str,program.encode));
-    } else if(program.decode) {
-      console.log(codec.decoder(str,program.decode));
+    var data = Buffer.concat(bufs);
+    if(codec.ENC_ALL.indexOf(program.encode) >= 0) {
+      process.stdout.write(codec.bufferEncoder(data,program.encode)+eol);
+    } else if(codec.DEC_ALL.indexOf(program.decode) >= 0) {
+      process.stdout.write(codec.bufferDecoder(data,program.decode));
     } else if(str == '') {
       program.help();
     }
   });
 } else {
-  if(program.encode) {
-    console.log(codec.encoder(program.args[0],program.encode));
-  } else if(program.decode) {
-    console.log(codec.decoder(program.args[0],program.decode));
+  if(codec.ENC_ALL.indexOf(program.encode) >= 0) {
+    process.stdout.write(codec.encoder(program.args[0],program.encode)+eol);
+  } else if(codec.DEC_ALL.indexOf(program.decode) >= 0) {
+    process.stdout.write(codec.decoder(program.args[0],program.decode));
+  } else {
+    console.error("Error: unknown algorithm specified")
   }
 }
