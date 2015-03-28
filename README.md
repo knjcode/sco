@@ -49,13 +49,17 @@ __-v, --version__
 
 output the version number
 
-__-e [algo], --encode [algo]__
+__-e &lt;algo&gt;, --encode &lt;algo&gt;__
 
 encode input with specified algorithm
 
-__-d [algo], --decode [algo]__
+__-d &lt;algo&gt;, --decode &lt;algo&gt;__
 
 decode input with specified algorithm
+
+__-l &lt;enc|dec&gt;, --list &lt;enc|dec&gt;__
+
+list all available encode/decode algorithm
 
 ## Supported specifications
 
@@ -65,13 +69,13 @@ For further details, see [knjcode/string-codec](https://github.com/knjcode/strin
 
 hex, ascii, base64, base85 (z85), ascii85, base91, rot5/rot13/rot18/rot47,  
 rev (reverse string), crc1/crc8/crc16/crc24/crc32, adler32, url (url encoding),  
-unixtime, lower, upper, md4, md5, sha, sha1, sha224, sha256, sha384, sha512,  
-rmd160, whirlpool
+unixtime, lower, upper, punycode, md4, md5, sha, sha1, sha224, sha256,  
+sha384, sha512, rmd160, whirlpool, etc.
 
 ### decoder
 
-hex, ascii, base64, base85 (z85), ascii85, base91,  
-rot5/rot13/rot18/rot47, rev, url, unixtime, md5
+hex, ascii, base64, base85 (z85), ascii85, base91,  rot5/rot13/rot18/rot47,  
+rev, url, unixtime, punycode, md5, etc.
 
 ## Running tests
 
