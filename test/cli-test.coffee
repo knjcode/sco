@@ -20,7 +20,7 @@ decode_testset =
     'YWJj':'abc'
 
 
-describe 'sco command-line test', ->
+describe 'sco command-line option test', ->
   it 'display version if -v option specified', (done) ->
     exec sco + '-v', (error, stdout, stderr) ->
       assert stdout is pack['version']+eol
@@ -29,6 +29,16 @@ describe 'sco command-line test', ->
   it 'display help message if -h option specified', (done) ->
     exec sco + '-h', (error, stdout, stderr) ->
       assert.ok stdout.match('help')
+      done()
+
+  it 'list available algorithm if -l enc option specified', (done) ->
+    exec sco + "-l enc", (error, stdout, stderr) ->
+      assert.ok stdout.match('base64')
+      done()
+
+  it 'list available algorithm if -l dec option specified', (done) ->
+    exec sco + "-l dec", (error, stdout, stderr) ->
+      assert.ok stdout.match('base64')
       done()
 
 describe 'cli encode test', ->
@@ -41,6 +51,11 @@ describe 'cli encode test', ->
               assert stdout is value+eol
               done()
 
+  it 'unknown algorithm error', (done) ->
+    exec sco + "-e hoge hello", (error, stdout, stderr) ->
+      assert stderr is "Error: unknown algorithm specified"+eol
+      done()
+
 describe 'cli decode test', ->
   for algo, testset of decode_testset
     do (algo, testset) ->
@@ -50,6 +65,11 @@ describe 'cli decode test', ->
             exec sco + "-d #{algo} \"#{key}\"", (error, stdout, stderr) ->
               assert stdout is value
               done()
+
+  it 'unknown algorithm error using pipes', (done) ->
+    exec sco + "-d hoge < /dev/null", (error, stdout, stderr) ->
+      assert stderr is "Error: unknown algorithm specified"+eol
+      done()
 
 describe 'cli encode and decode test using pipes', ->
   it 'echo hello | sco -e base64 | sco -d base64', (done) ->
