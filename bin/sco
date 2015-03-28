@@ -9,8 +9,9 @@ var eol = require('os').EOL;
 program
   .version(package.version, '-v, --version')
   .usage('[options] <input>')
-  .option('-e, --encode [algo]', 'encode input string by specified algorithm')
-  .option('-d, --decode [algo]', 'decode input string by specified algorithm')
+  .option('-e, --encode <algo>', 'encode input string with specified algorithm')
+  .option('-d, --decode <algo>', 'decode input string with specified algorithm')
+  .option('-l, --list <enc|dec>', 'list available encode|decode algorithm');
 
 program.parse(process.argv);
 
@@ -26,16 +27,27 @@ if(!program.args.length) { // No args
       process.stdout.write(codec.bufferEncoder(data,program.encode)+eol);
     } else if(codec.DEC_ALL.indexOf(program.decode) >= 0) {
       process.stdout.write(codec.bufferDecoder(data,program.decode));
-    } else if(str == '') {
-      program.help();
+    } else {
+      console.error("Error: unknown algorithm specified");
     }
   });
+  process.stdin.on('error', function(){
+    process.exit(1);
+  });
+
+  if(program.list === 'enc') {
+    console.log(JSON.stringify(codec.ENC_ALL));
+    process.exit(0);
+  } else if(program.list === "dec") {
+    console.log(JSON.stringify(codec.DEC_ALL));
+    process.exit(0);
+  }
 } else {
   if(codec.ENC_ALL.indexOf(program.encode) >= 0) {
     process.stdout.write(codec.encoder(program.args[0],program.encode)+eol);
   } else if(codec.DEC_ALL.indexOf(program.decode) >= 0) {
     process.stdout.write(codec.decoder(program.args[0],program.decode));
   } else {
-    console.error("Error: unknown algorithm specified")
+    console.error("Error: unknown algorithm specified");
   }
 }
