@@ -5,7 +5,7 @@ $ = (require 'gulp-load-plugins') lazy: false
 
 paths =
   jshint: [
-    './bin/*.js'
+    './bin/*'
   ]
   coffeelint: [
     './gulpfile.coffee'
