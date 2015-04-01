@@ -63,7 +63,7 @@ list all available encode/decode algorithm
 
 ## Supported specifications
 
-For further details, see [knjcode/string-codec](https://github.com/knjcode/string-codec)
+For further details, see [string-codec]
 
 ### encoder
 
@@ -79,7 +79,7 @@ rev, url, unixtime, punycode, md5, etc.
 
 ## Running tests
 
-    $ git clone https://github.com/knjcode/sco.git
+    $ git clone https://github.com/knjcode/sco
     $ cd sco
     $ npm install
     $ npm test
