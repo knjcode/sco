@@ -1,6 +1,6 @@
 {
   "name": "sco",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Command line interface of string-codec",
   "bin": "./bin/sco",
   "scripts": {
